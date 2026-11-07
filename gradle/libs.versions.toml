@@ -1,0 +1,30 @@
+[versions]
+java = "21"
+
+# Keep in sync with the consumer apps (payment-app, point-app).
+spring-boot = "4.1.0"
+
+spotless = "8.10.3"
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+[libraries]
+# BOM only. Applied to the compile/test classpaths so versions line up with the
+# consumer apps; never published as a dependency of this library.
+spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+
+spring-context = { module = "org.springframework:spring-context" }
+spring-web = { module = "org.springframework:spring-web" }
+spring-tx = { module = "org.springframework:spring-tx" }
+spring-test = { module = "org.springframework:spring-test" }
+
+jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
+slf4j-api = { module = "org.slf4j:slf4j-api" }
+
+lombok = { module = "org.projectlombok:lombok" }
+
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+assertj-core = { module = "org.assertj:assertj-core" }
+mockito-core = { module = "org.mockito:mockito-core" }
