@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version, no v prefix (e.g. 0.2.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  JAVA_VERSION: 21
+  JAVA_DIST: 'temurin'
+  VERSION: ${{ inputs.version }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Validate version and tag
+        run: |
+          if ! printf '%s' "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::Version must be MAJOR.MINOR.PATCH, got '$VERSION'"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
+            echo "::error::Tag v$VERSION already exists. JitPack caches builds per tag and will not rebuild it."
+            exit 1
+          fi
+
+      - uses: actions/setup-java@v6
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DIST }}
+
+      - uses: gradle/actions/setup-gradle@v6
+
+      - name: Build
+        run: ./gradlew build -Pversion="$VERSION"
+
+      # Dry-run the exact command JitPack will run against the tag, so a broken
+      # release fails here rather than silently serving nothing.
+      - name: Verify JitPack publication
+        run: |
+          ./gradlew publishToMavenLocal -Pversion="v$VERSION"
+          find ~/.m2/repository -name "payment-shared-v$VERSION.jar" -print -quit | grep -q . \
+            || { echo "::error::JitPack-style publish produced no jar for v$VERSION"; exit 1; }
+
+      - name: Create tag
+        run: |
+          git config user.name  "team-uts-bot"
+          git config user.email "team-uts-bot@teamuts.noreply.github.com"
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "v$VERSION" --title "v$VERSION" --generate-notes
+
+      # JitPack builds lazily on first request. Warm it so the first consumer
+      # does not eat a multi-minute cold start, and so build failures surface now.
+      # Simply request the JitPack build log URL to trigger the build in advance.
+      - name: Trigger JitPack build
+        run: |
+          echo "Asking JitPack to build v$VERSION ..."
+          curl -sS -m 900 \
+            "https://jitpack.io/com/github/team-uts/payment-shared/v$VERSION/build.log" | tail -40

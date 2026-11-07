@@ -13,6 +13,7 @@ spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 # BOM only. Applied to the compile/test classpaths so versions line up with the
 # consumer apps; never published as a dependency of this library.
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure", version.ref = "spring-boot" }
 
 spring-context = { module = "org.springframework:spring-context" }
 spring-web = { module = "org.springframework:spring-web" }

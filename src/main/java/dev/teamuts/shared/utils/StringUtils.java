@@ -21,7 +21,7 @@ public class StringUtils {
     return target.substring(0, maxLength);
   }
 
-  public static String covertByteArrayToStr(byte[] bytes, int maxLength) {
+  public static String convertByteArrayToStr(byte[] bytes, int maxLength) {
     return new String(bytes, 0, Math.min(bytes.length, maxLength), StandardCharsets.UTF_8);
   }
 }

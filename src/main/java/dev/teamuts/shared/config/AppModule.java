@@ -3,16 +3,14 @@ package dev.teamuts.shared.config;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 public enum AppModule {
   DEFAULT(""),
   DOMAIN("domain"),
   INFRA("infra"),
   PERSISTENCE("persistence"),
-  SHARED("shared");
+  ;
 
   private final String moduleName;
 

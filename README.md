@@ -12,9 +12,6 @@ guarantees the library can never pull a conflicting Spring version into an app.
 The Spring Boot BOM version in `gradle/libs.versions.toml` should be kept in sync with the
 consumer apps (currently `4.1.0`).
 
-Components in this library (e.g. `ProblemDetailGenerator`) are plain `@Component`s; consumers
-must either component-scan `dev.teamuts.shared` or register them explicitly.
-
 ## Publishing via JitPack (alternative to GitHub Packages)
 
 JitPack builds from a git tag — there is no publish step and no credentials to manage.
@@ -25,30 +22,24 @@ before anything else.
 
 ### From CI (preferred)
 
-`.github/workflows/publish.yml` runs on a published GitHub Release, or manually via
-**Actions → Publish → Run workflow**. It uses the built-in `GITHUB_TOKEN`, so no personal
+`.github/workflows/release.yml` runs on a published GitHub Release.
+It uses the built-in `GITHUB_TOKEN`, so no personal
 token is needed. A release tagged `v0.1.0` publishes version `0.1.0`.
 
 ### From a laptop
 
 ```bash
-./gradlew publishToMavenLocal                                 # ~/.m2/repository
+./gradlew publishToMavenLocal # ~/.m2/repository
 ```
 
 ### Setup
 
 Already in place: `jitpack.yml` pins OpenJDK 21 (JitPack defaults to 8, which cannot build
-this project) and overrides the coordinates, since JitPack only serves artifacts under
-`com.github.<owner>`:
-
+this project):
 ```yaml
-install:
-  - ./gradlew build publishToMavenLocal -Pgroup=com.github.team-uts -Pversion=$VERSION
+jdk:
+  - openjdk21
 ```
-
-`group` and `version` therefore live in `gradle.properties`, not `build.gradle.kts` — a
-hardcoded `group =` in the build script would silently win over `-Pgroup` and JitPack would
-serve nothing. `gradle/wrapper/gradle-wrapper.jar` must stay committed.
 
 ### Releasing
 

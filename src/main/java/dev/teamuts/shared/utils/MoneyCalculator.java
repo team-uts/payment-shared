@@ -43,6 +43,12 @@ public class MoneyCalculator {
     return !isEqual(amount1, amount2);
   }
 
+  public static BigDecimal add(BigDecimal amount1, BigDecimal amount2) {
+    Objects.requireNonNull(amount1);
+    Objects.requireNonNull(amount2);
+    return amount1.add(amount2);
+  }
+
   public static BigDecimal subtract(BigDecimal amount1, BigDecimal amount2) {
     Objects.requireNonNull(amount1);
     Objects.requireNonNull(amount2);

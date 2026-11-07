@@ -7,7 +7,6 @@ public interface ErrorCode {
 
   String getCode();
 
-  // TODO: refactoring
   String getMessageKey();
 
   HttpStatus getHttpStatus();

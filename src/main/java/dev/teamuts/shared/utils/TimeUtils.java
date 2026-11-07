@@ -1,9 +1,9 @@
 package dev.teamuts.shared.utils;
 
 public class TimeUtils {
-  public static final int MILLI_SEC_UNIT = 1_000;
+  public static final long MILLI_SEC_UNIT = 1_000L;
 
-  public static int convertSecToMillis(int seconds) {
+  public static long convertSecToMillis(int seconds) {
     return seconds * MILLI_SEC_UNIT;
   }
 

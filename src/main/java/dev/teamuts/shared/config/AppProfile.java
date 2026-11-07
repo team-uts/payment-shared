@@ -3,9 +3,7 @@ package dev.teamuts.shared.config;
 import java.util.Arrays;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
-@Component
 public class AppProfile implements EnvironmentAware {
   private String[] profiles;
 

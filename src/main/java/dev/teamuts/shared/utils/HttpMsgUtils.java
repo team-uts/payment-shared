@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class HttpMsgUtils {
+  // TODO: security issue: Authorization and Cookie
   public static String getRequestHeaders(HttpServletRequest request) {
     return Collections.list(request.getHeaderNames()).stream()
         .map(name -> "%s=%s".formatted(name, request.getHeader(name)))
