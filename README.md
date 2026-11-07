@@ -20,11 +20,13 @@ JitPack builds from a git tag — there is no publish step and no credentials to
 repos require a paid subscription. For a payment library that is the decision to make
 before anything else.
 
-### From CI (preferred)
-
-`.github/workflows/release.yml` runs on a published GitHub Release.
-It uses the built-in `GITHUB_TOKEN`, so no personal
-token is needed. A release tagged `v0.1.0` publishes version `0.1.0`.
+### From Github Actions (preferred)
+- `.github/workflows/ci.yml`
+  - builds and checks the validity of code on every push to `main`.
+- `.github/workflows/release.yml`
+  - runs on a published GitHub Release.
+  - It uses the built-in `GITHUB_TOKEN`, so no personal token is needed.
+  - A release tagged `v0.1.0` publishes version `0.1.0`.
 
 ### From a laptop
 
@@ -43,10 +45,9 @@ jdk:
 
 ### Releasing
 
-1. Push the repo to `github.com/team-uts/payment-shared` as **public**.
-2. Create a GitHub Release with a tag, e.g. `v0.1.0`.
-3. Open `https://jitpack.io/#team-uts/payment-shared` and hit **Get it** to trigger the
-   first build (later tags build on demand, on first request).
+1. Push code to `main` branch in `github.com/team-uts/payment-shared`.
+2. `Actions` → `Release` → `Run workflow` → Set Release version (e.g., `0.1.0`, without the letter `v`).
+3. Open `https://jitpack.io/#team-uts/payment-shared` and check the build status.
 
 ### Consuming
 
