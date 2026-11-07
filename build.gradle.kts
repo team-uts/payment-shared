@@ -24,14 +24,13 @@ val springBootBom = dependencies.platform(libs.spring.boot.dependencies)
 dependencies {
   compileOnly(springBootBom)
   annotationProcessor(springBootBom)
-  testImplementation(springBootBom)
-  testAnnotationProcessor(springBootBom)
 
   compileOnly(libs.spring.boot.autoconfigure)
 
   // Spring is compileOnly on purpose: every consumer is already a Spring Boot app
   // and brings these at runtime. Keeping them off the published POM means this
   // library can never drag a conflicting Spring version into payment-app/point-app.
+  compileOnly(libs.spring.security.web)
   compileOnly(libs.spring.context)
   compileOnly(libs.spring.web)
   compileOnly(libs.spring.tx)
@@ -41,19 +40,26 @@ dependencies {
   compileOnly(libs.lombok)
   annotationProcessor(libs.lombok)
 
+  compileOnly(libs.google.gson)
+  compileOnly(libs.snakeyaml)
+  compileOnly(libs.jackson.annotation)
+
   // Tests need the real thing on the classpath.
-  testImplementation(libs.spring.context)
-  testImplementation(libs.spring.web)
-  testImplementation(libs.spring.tx)
   testImplementation(libs.spring.test)
-  testImplementation(libs.jakarta.servlet.api)
-  testImplementation(libs.slf4j.api)
   testImplementation(libs.junit.jupiter)
   testImplementation(libs.assertj.core)
   testImplementation(libs.mockito.core)
   testRuntimeOnly(libs.junit.platform.launcher)
-  testCompileOnly(libs.lombok)
-  testAnnotationProcessor(libs.lombok)
+}
+
+configurations {
+  testImplementation {
+    extendsFrom(compileOnly.get())
+  }
+
+  testAnnotationProcessor {
+    extendsFrom(annotationProcessor.get())
+  }
 }
 
 tasks.test {

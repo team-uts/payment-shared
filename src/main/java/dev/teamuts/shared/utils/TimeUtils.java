@@ -7,7 +7,7 @@ public class TimeUtils {
     return seconds * MILLI_SEC_UNIT;
   }
 
-  public static double convertMillisToSecWithPrecision(double millis) {
+  public static double convertMillisToSecWithPrecision(long millis) {
     return millis / (double) MILLI_SEC_UNIT;
   }
 }
