@@ -1,4 +1,4 @@
-package dev.teamuts.shared.provider;
+package dev.teamuts.shared.utils.provider;
 
 import java.util.List;
 
