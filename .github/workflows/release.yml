@@ -15,6 +15,9 @@ env:
   JAVA_VERSION: 21
   JAVA_DIST: 'temurin'
   VERSION: ${{ inputs.version }}
+  ARTIFACT_PATH: maven-repo
+  GROUP_PATH: dev/teamuts/shared
+  ARTIFACT_ID: payment-shared
 
 jobs:
   release:
@@ -32,7 +35,7 @@ jobs:
             exit 1
           fi
           if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
-            echo "::error::Tag v$VERSION already exists. JitPack caches builds per tag and will not rebuild it."
+            echo "::error::Tag v$VERSION already exists"
             exit 1
           fi
 
@@ -44,15 +47,38 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6
 
       - name: Build
-        run: ./gradlew build -Pversion="$VERSION"
+        run: ./gradlew clean build -Pversion="$VERSION"
 
-      # Dry-run the exact command JitPack will run against the tag, so a broken
-      # release fails here rather than silently serving nothing.
-      - name: Verify JitPack publication
+      - name: Check out the Maven repository branch
+        uses: actions/checkout@v7.0.1
+        with:
+          ref: gh-pages
+          path: pages
+
+      - name: Refuse to overwrite a published version
         run: |
-          ./gradlew publishToMavenLocal -Pversion="v$VERSION"
-          find ~/.m2/repository -name "payment-shared-v$VERSION.jar" -print -quit | grep -q . \
-            || { echo "::error::JitPack-style publish produced no jar for v$VERSION"; exit 1; }
+          if [ -d "pages/$ARTIFACT_PATH/$GROUP_PATH/$ARTIFACT_ID/$VERSION" ]; then
+            echo "::error::$VERSION is already published. Consumers may have it cached; pick a new version."
+            exit 1
+          fi
+
+      - name: Publish into the Maven repository
+        run: |
+          ./gradlew publishAllPublicationsToPagesRepository \
+            -Pversion="$VERSION" \
+            -PpagesRepoDir="$GITHUB_WORKSPACE/pages/$ARTIFACT_PATH"
+
+          jar="pages/$ARTIFACT_PATH/$GROUP_PATH/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.jar"
+          test -f "$jar" || { echo "::error::publish produced no jar at $jar"; exit 1; }
+
+      - name: Push the Maven repository
+        working-directory: pages
+        run: |
+          git config user.name  "team-uts-bot"
+          git config user.email "team-uts-bot@teamuts.noreply.github.com"
+          git add -A
+          git commit -m "Publish payment-shared $VERSION"
+          git push origin gh-pages
 
       - name: Create tag
         run: |
@@ -66,11 +92,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create "v$VERSION" --title "v$VERSION" --generate-notes
 
-      # JitPack builds lazily on first request. Warm it so the first consumer
-      # does not eat a multi-minute cold start, and so build failures surface now.
-      # Simply request the JitPack build log URL to trigger the build in advance.
-      - name: Trigger JitPack build
+      - name: Wait for GitHub Pages to serve the release
         run: |
-          echo "Asking JitPack to build v$VERSION ..."
-          curl -sS -m 900 \
-            "https://jitpack.io/com/github/team-uts/payment-shared/v$VERSION/build.log" | tail -40
+          url="$PAGES_URL/$ARTIFACT_PATH/$GROUP_PATH/$ARTIFACT_ID/$VERSION/$ARTIFACT_ID-$VERSION.pom"
+          for _ in $(seq 1 30); do
+            if curl -fsS -o /dev/null "$url"; then
+              echo "Serving $url"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::warning::Pages has not served $url after 5 minutes; check the pages-build-deployment run."

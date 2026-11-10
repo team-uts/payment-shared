@@ -76,12 +76,25 @@ tasks.withType<Jar>().configureEach {
   isReproducibleFileOrder = true
 }
 
+val pagesRepoDir =
+  providers
+    .gradleProperty("pagesRepoDir")
+    .map { file(it) }
+    .orElse(layout.buildDirectory.dir("maven-repo").map { it.asFile })
+
 publishing {
   publications {
     create<MavenPublication>("library") {
       from(components["java"])
-      artifactId = "payment-shared"
       groupId = "dev.teamuts.shared"
+      artifactId = "payment-shared"
+    }
+  }
+
+  repositories {
+    maven {
+      name = "pages"
+      url = uri(pagesRepoDir.get())
     }
   }
 }

@@ -11,6 +11,10 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  JAVA_VERSION: 21
+  JAVA_DIST: 'temurin'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,16 +25,16 @@ jobs:
 
       - uses: actions/setup-java@v6
         with:
-          distribution: temurin
-          java-version: "21"
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DIST }}
 
       - uses: gradle/actions/setup-gradle@v6
 
-      # `build` runs compileJava, test and spotlessCheck.
-      - name: Build
-        run: ./gradlew build
+      - name: Plugin functional test
+        run: ./gradlew clean test
 
-      # JitPack builds on its own machine with its own command, so a green `build`
-      # does not prove a release will resolve. Run what JitPack runs.
-      - name: Verify JitPack publication
-        run: ./gradlew publishToMavenLocal -Pversion=ci-snapshot
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Verify publication
+        run: ./gradlew publishAllPublicationsToPagesRepository -Pversion=ci-snapshot
