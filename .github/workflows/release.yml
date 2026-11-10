@@ -65,7 +65,7 @@ jobs:
 
       - name: Publish into the Maven repository
         run: |
-          ./gradlew publishAllPublicationsToPagesRepository \
+          ./gradlew publishLibraryPublicationToPagesRepository \
             -Pversion="$VERSION" \
             -PpagesRepoDir="$GITHUB_WORKSPACE/pages/$ARTIFACT_PATH"
 
