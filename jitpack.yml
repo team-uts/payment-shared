@@ -1,3 +1,0 @@
-# JitPack defaults to OpenJDK 8, which cannot build this project (toolchain 21).
-jdk:
-  - openjdk21

@@ -15,6 +15,7 @@ env:
   JAVA_VERSION: 21
   JAVA_DIST: 'temurin'
   VERSION: ${{ inputs.version }}
+  PAGES_URL: "https://team-uts.github.io/payment-shared"
   ARTIFACT_PATH: maven-repo
   GROUP_PATH: dev/teamuts/shared
   ARTIFACT_ID: payment-shared
