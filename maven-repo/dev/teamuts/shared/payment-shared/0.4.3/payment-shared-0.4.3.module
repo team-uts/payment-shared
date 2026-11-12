@@ -1,0 +1,100 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "dev.teamuts.shared",
+    "module": "payment-shared",
+    "version": "0.4.3",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.4.3.jar",
+          "url": "payment-shared-0.4.3.jar",
+          "size": 50196,
+          "sha512": "e28827a4d30cd386a5dd6eee661012a734dfe539a970318226a507c8eee3039160cafd27bd256a5ca7000fcfc71292a7f5d65626bf32b27c26af80fba67d0578",
+          "sha256": "6450e1a5323314ef4a3706909fb74e2ee960cf2a2e36741d0dbc787c2c7c15a7",
+          "sha1": "43409c5e2e68c261eeeb9c0d0cb72b670210202a",
+          "md5": "217de876784930dc9092748ff308e45b"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.4.3.jar",
+          "url": "payment-shared-0.4.3.jar",
+          "size": 50196,
+          "sha512": "e28827a4d30cd386a5dd6eee661012a734dfe539a970318226a507c8eee3039160cafd27bd256a5ca7000fcfc71292a7f5d65626bf32b27c26af80fba67d0578",
+          "sha256": "6450e1a5323314ef4a3706909fb74e2ee960cf2a2e36741d0dbc787c2c7c15a7",
+          "sha1": "43409c5e2e68c261eeeb9c0d0cb72b670210202a",
+          "md5": "217de876784930dc9092748ff308e45b"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.4.3-sources.jar",
+          "url": "payment-shared-0.4.3-sources.jar",
+          "size": 24552,
+          "sha512": "64bf30b20070bb1e7ba0f231826d430b3f73af4d40cadc9c70779dab5bbac01029701b1d2488f2230ac3ca9f3580cec5ca67196e8963a2a62771189c217a8872",
+          "sha256": "9ccab42f4d76aa89e6c9c3488ba1584d8ee7b23312ae7ff941a65dbf715368a0",
+          "sha1": "51a929d276fb5060c148548a1b54753ada430017",
+          "md5": "0f040f254c9cfeb6e332c1bb6b4be151"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.4.3-javadoc.jar",
+          "url": "payment-shared-0.4.3-javadoc.jar",
+          "size": 260764,
+          "sha512": "fdacbf6d54a5e3ad6afeb49f5badc4aafcd8fe50b25f4277c4f5c0d9fabac841def941b37f11d2b971e228a9f6fa2038e98a8c2adda4014a298dc7197c961ed4",
+          "sha256": "6d9518b536b65e8bd6e2134c768e19be139258898a1584a3431d2389bb3c03e8",
+          "sha1": "65864dc23bf8e6118497c8d774d9adafa33c94e7",
+          "md5": "2475e4ab2464f260532a82f1439df1b4"
+        }
+      ]
+    }
+  ]
+}
