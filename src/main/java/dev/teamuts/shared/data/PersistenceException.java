@@ -33,4 +33,11 @@ public class PersistenceException extends SystemException {
         "Entity (%s) is not persisted yet.".formatted(model.getClass().getSimpleName()),
         null);
   }
+
+  public static PersistenceException alreadyPersisted(BaseIdentifiableModel<?> model) {
+    return new PersistenceException(
+        PersistenceErrorCode.ALREADY_PERSISTED,
+        "Entity (%s) is already persisted.".formatted(model.getClass().getSimpleName()),
+        null);
+  }
 }

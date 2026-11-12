@@ -8,7 +8,11 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class BaseIdentifiableModel<ID> {
-  @EqualsAndHashCode.Include private final ID id;
+  @EqualsAndHashCode.Include private ID id;
+
+  protected BaseIdentifiableModel() {
+    this.id = null;
+  }
 
   protected BaseIdentifiableModel(ID id) {
     if (id != null && !(id instanceof Long || id instanceof UUID)) {
@@ -22,6 +26,17 @@ public abstract class BaseIdentifiableModel<ID> {
     if (!isPersisted()) {
       throw PersistenceException.notPersisted(this);
     }
+  }
+
+  /**
+   * Only when the entity is not persisted, the ID can be set.
+   */
+  protected final void setId(ID id) {
+    if (isPersisted()) {
+      throw PersistenceException.alreadyPersisted(this);
+    }
+
+    this.id = id;
   }
 
   private boolean isPersisted() {

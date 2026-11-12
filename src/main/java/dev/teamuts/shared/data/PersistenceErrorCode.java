@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum PersistenceErrorCode implements SystemErrorCode {
   NOT_FOUND("PERS-0001"),
-  NOT_PERSISTED("PERS-0002");
+  NOT_PERSISTED("PERS-0002"),
+  ALREADY_PERSISTED("PERS-0003"),
+  ;
 
   private final String code;
   // Persistence layer errors > Internal Server Error (500)
