@@ -28,9 +28,7 @@ public abstract class BaseIdentifiableModel<ID> {
     }
   }
 
-  /**
-   * Only when the entity is not persisted, the ID can be set.
-   */
+  /** Only when the entity is not persisted, the ID can be set. */
   protected final void setId(ID id) {
     if (isPersisted()) {
       throw PersistenceException.alreadyPersisted(this);
