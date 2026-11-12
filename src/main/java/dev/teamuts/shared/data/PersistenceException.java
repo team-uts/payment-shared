@@ -10,6 +10,10 @@ public class PersistenceException extends SystemException {
     super(errorCode, logMessage, detailedMessage);
   }
 
+  public static PersistenceException of(PersistenceErrorCode errorCode, String logMessage) {
+    return new PersistenceException(errorCode, logMessage, null);
+  }
+
   public static PersistenceException notFound(BaseIdentifiableModel<Long> model) {
     return new PersistenceException(
         PersistenceErrorCode.NOT_FOUND,
