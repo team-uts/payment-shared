@@ -4,6 +4,7 @@ import dev.teamuts.shared.domain.error.PercentageErrorCode;
 import dev.teamuts.shared.error.exception.BusinessException;
 import dev.teamuts.shared.utils.BigDecimalUtils;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -16,6 +17,7 @@ public class Percentage {
   private final BigDecimal value;
 
   public static final BigDecimal HUNDRED = new BigDecimal("100.00");
+  public static final int SCALE = 2;
 
   public static Percentage of(BigDecimal value) {
     if (BigDecimalUtils.isGreaterThanEqualToZero(value)
@@ -23,6 +25,6 @@ public class Percentage {
       throw BusinessException.of(PercentageErrorCode.INVALID);
     }
 
-    return new Percentage(value);
+    return new Percentage(value.setScale(SCALE, RoundingMode.UNNECESSARY));
   }
 }
