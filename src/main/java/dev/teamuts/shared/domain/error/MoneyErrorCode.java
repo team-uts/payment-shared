@@ -1,4 +1,4 @@
-package dev.teamuts.shared.domain.money;
+package dev.teamuts.shared.domain.error;
 
 import dev.teamuts.shared.error.constant.ErrorCode;
 import lombok.AccessLevel;

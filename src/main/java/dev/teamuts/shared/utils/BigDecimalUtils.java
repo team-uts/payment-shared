@@ -3,17 +3,28 @@ package dev.teamuts.shared.utils;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class MoneyCalculator {
+public class BigDecimalUtils {
   public static boolean isGreaterThan(BigDecimal amount1, BigDecimal amount2) {
     Objects.requireNonNull(amount1);
     Objects.requireNonNull(amount2);
     return amount1.compareTo(amount2) > 0;
   }
 
+  public static boolean isGreaterThanEqualToZero(BigDecimal amount) {
+    Objects.requireNonNull(amount);
+    return amount.compareTo(BigDecimal.ZERO) >= 0;
+  }
+
   public static boolean isLessThan(BigDecimal amount1, BigDecimal amount2) {
     Objects.requireNonNull(amount1);
     Objects.requireNonNull(amount2);
     return amount1.compareTo(amount2) < 0;
+  }
+
+  public static boolean isLessThanEqualTo(BigDecimal amount1, BigDecimal amount2) {
+    Objects.requireNonNull(amount1);
+    Objects.requireNonNull(amount2);
+    return amount1.compareTo(amount2) <= 0;
   }
 
   public static boolean isGreaterThanZero(BigDecimal amount) {

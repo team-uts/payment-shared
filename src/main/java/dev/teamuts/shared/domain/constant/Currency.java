@@ -1,4 +1,4 @@
-package dev.teamuts.shared.domain.money;
+package dev.teamuts.shared.domain.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

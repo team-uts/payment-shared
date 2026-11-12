@@ -1,8 +1,10 @@
-package dev.teamuts.shared.domain.money;
+package dev.teamuts.shared.domain.model;
 
+import dev.teamuts.shared.domain.constant.Currency;
+import dev.teamuts.shared.domain.error.MoneyErrorCode;
 import dev.teamuts.shared.error.exception.BusinessException;
 import dev.teamuts.shared.error.exception.ErrorArguments;
-import dev.teamuts.shared.utils.MoneyCalculator;
+import dev.teamuts.shared.utils.BigDecimalUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import lombok.AccessLevel;
@@ -15,17 +17,17 @@ import lombok.Getter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Money {
   @EqualsAndHashCode.Include(rank = 1)
-  private BigDecimal amount;
+  private final BigDecimal amount;
 
   @EqualsAndHashCode.Include(rank = 2)
-  private Currency currency;
+  private final Currency currency;
 
   public static Money zero(Currency currency) {
     return of(BigDecimal.ZERO, currency);
   }
 
   public static Money of(BigDecimal amount, Currency currency) {
-    if (MoneyCalculator.isLessThanZero(amount)) {
+    if (BigDecimalUtils.isLessThanZero(amount)) {
       throw BusinessException.of(MoneyErrorCode.LESS_THAN_ZERO, ErrorArguments.of(amount));
     }
 
@@ -35,35 +37,35 @@ public class Money {
   public boolean isEqual(Money other) {
     checkIfSameCurrency(other);
 
-    return MoneyCalculator.isEqual(this.amount, other.amount);
+    return BigDecimalUtils.isEqual(this.amount, other.amount);
   }
 
   public boolean isGreaterThanZero() {
-    return MoneyCalculator.isGreaterThan(
+    return BigDecimalUtils.isGreaterThan(
         this.amount, BigDecimal.ZERO.setScale(currency.getScale(), RoundingMode.UNNECESSARY));
   }
 
   public boolean isZero() {
-    return MoneyCalculator.isEqual(
+    return BigDecimalUtils.isEqual(
         this.amount, BigDecimal.ZERO.setScale(currency.getScale(), RoundingMode.UNNECESSARY));
   }
 
   public boolean isLessThan(Money other) {
     checkIfSameCurrency(other);
 
-    return MoneyCalculator.isLessThan(this.amount, other.amount);
+    return BigDecimalUtils.isLessThan(this.amount, other.amount);
   }
 
   public Money plus(Money other) {
     checkIfSameCurrency(other);
 
-    return Money.of(MoneyCalculator.add(this.amount, other.amount), this.currency);
+    return Money.of(BigDecimalUtils.add(this.amount, other.amount), this.currency);
   }
 
   public Money minus(Money other) {
     checkIfSameCurrency(other);
 
-    return Money.of(MoneyCalculator.subtract(this.amount, other.amount), this.currency);
+    return Money.of(BigDecimalUtils.subtract(this.amount, other.amount), this.currency);
   }
 
   public boolean hasSameCurrency(Money other) {

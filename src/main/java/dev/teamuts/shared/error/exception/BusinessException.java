@@ -11,6 +11,10 @@ public class BusinessException extends ApiExternalException {
     super(errorCode, errorArgs);
   }
 
+  public static BusinessException of(ErrorCode errorCode) {
+    return new BusinessException(errorCode);
+  }
+
   public static BusinessException of(ErrorCode errorCode, ErrorArguments errorArgs) {
     return new BusinessException(errorCode, errorArgs);
   }
