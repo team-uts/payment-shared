@@ -38,6 +38,12 @@ public class Money {
     return BigDecimalUtils.isEqual(this.amount, other.amount);
   }
 
+  public boolean isNotEqual(Money other) {
+    checkIfSameCurrency(other);
+
+    return BigDecimalUtils.isNotEqual(this.amount, other.amount);
+  }
+
   public boolean isGreaterThanZero() {
     return BigDecimalUtils.isGreaterThan(
         this.amount, BigDecimal.ZERO.setScale(currency.getScale(), RoundingMode.UNNECESSARY));
@@ -48,10 +54,28 @@ public class Money {
         this.amount, BigDecimal.ZERO.setScale(currency.getScale(), RoundingMode.UNNECESSARY));
   }
 
+  public boolean isGreaterThan(Money other) {
+    checkIfSameCurrency(other);
+
+    return BigDecimalUtils.isGreaterThan(this.amount, other.amount);
+  }
+
+  public boolean isGreaterThanOrEqualTo(Money other) {
+    checkIfSameCurrency(other);
+
+    return BigDecimalUtils.isGreaterThanOrEqualTo(this.amount, other.amount);
+  }
+
   public boolean isLessThan(Money other) {
     checkIfSameCurrency(other);
 
     return BigDecimalUtils.isLessThan(this.amount, other.amount);
+  }
+
+  public boolean isLessThanOrEqualTo(Money other) {
+    checkIfSameCurrency(other);
+
+    return BigDecimalUtils.isLessThanOrEqualTo(this.amount, other.amount);
   }
 
   public boolean hasSameCurrency(Money other) {
