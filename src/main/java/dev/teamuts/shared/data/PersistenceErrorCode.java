@@ -4,6 +4,7 @@ import dev.teamuts.shared.error.constant.SystemErrorCode;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -19,7 +20,7 @@ public enum PersistenceErrorCode implements SystemErrorCode {
   private final HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
   @Override
-  public String getMessageKey() {
+  public @NonNull String getMessageKey() {
     return "persistence." + name();
   }
 }

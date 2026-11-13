@@ -3,6 +3,7 @@ package dev.teamuts.shared.error.constant;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 
 @Getter
@@ -15,7 +16,7 @@ public enum CommonErrorCode implements SystemErrorCode {
   private final HttpStatus httpStatus;
 
   @Override
-  public String getMessageKey() {
+  public @NonNull String getMessageKey() {
     return "common." + name();
   }
 }

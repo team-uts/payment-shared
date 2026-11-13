@@ -1,13 +1,12 @@
 package dev.teamuts.shared.error.constant;
 
-import org.springframework.http.HttpStatus;
+import org.jspecify.annotations.NonNull;
 
-public interface ErrorCode {
+public interface ErrorCode extends KtErrorCode {
   String name();
 
-  String getCode();
-
-  String getMessageKey();
-
-  HttpStatus getHttpStatus();
+  @Override
+  default @NonNull String getName() {
+    return name();
+  }
 }

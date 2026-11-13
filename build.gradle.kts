@@ -2,6 +2,8 @@ plugins {
   // library variant in the published Gradle Module Metadata.
   `java-library`
   `maven-publish`
+  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.kotlin.lombok)
   alias(libs.plugins.spotless)
 }
 
@@ -14,6 +16,12 @@ java {
   }
   withSourcesJar()
   withJavadocJar()
+}
+
+kotlin {
+  compilerOptions {
+    freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+  }
 }
 
 // NOTE: the org.springframework.boot plugin is deliberately NOT applied here.
@@ -50,6 +58,7 @@ dependencies {
   testImplementation(libs.assertj.core)
   testImplementation(libs.mockito.core)
   testRuntimeOnly(libs.junit.platform.launcher)
+  testImplementation(kotlin("test"))
 }
 
 configurations {
@@ -105,6 +114,15 @@ spotless {
     targetExclude("**/generated/**")
     googleJavaFormat("2.0.0")
     removeUnusedImports()
+  }
+
+  kotlin {
+    target("src/**/*.kt")
+    targetExclude("**/generated/**", "**/build/**")
+
+    ktfmt().googleStyle()
+    trimTrailingWhitespace()
+    endWithNewline()
   }
 
   kotlinGradle {
