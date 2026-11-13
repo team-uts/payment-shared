@@ -7,14 +7,12 @@ import dev.teamuts.shared.error.exception.ErrorArguments;
 import dev.teamuts.shared.utils.BigDecimalUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString
 public class Money {
   @EqualsAndHashCode.Include(rank = 1)
   private final BigDecimal amount;
@@ -56,6 +54,14 @@ public class Money {
     return BigDecimalUtils.isLessThan(this.amount, other.amount);
   }
 
+  public boolean hasSameCurrency(Money other) {
+    return this.currency.equals(other.currency);
+  }
+
+  public boolean hasNotSameCurrency(Money other) {
+    return !hasSameCurrency(other);
+  }
+
   public Money plus(Money other) {
     checkIfSameCurrency(other);
 
@@ -68,12 +74,13 @@ public class Money {
     return Money.of(BigDecimalUtils.subtract(this.amount, other.amount), this.currency);
   }
 
-  public boolean hasSameCurrency(Money other) {
-    return this.currency.equals(other.currency);
-  }
-
-  public boolean hasNotSameCurrency(Money other) {
-    return !hasSameCurrency(other);
+  public Money multiplyByPercentage(Percentage percentage) {
+    return Money.of(
+        amount
+            .multiply(percentage.getValue())
+            .movePointLeft(Percentage.DECIMAL_PLACES)
+            .setScale(currency.getScale(), RoundingMode.HALF_UP),
+        this.currency);
   }
 
   public Money copy() {

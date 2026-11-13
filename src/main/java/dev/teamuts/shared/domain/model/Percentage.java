@@ -13,12 +13,13 @@ import lombok.*;
 public class Percentage {
   private final BigDecimal value;
 
-  public static final Percentage HUNDRED = new Percentage(new BigDecimal("100.00"));
+  public static final Percentage ONE_HUNDRED = new Percentage(new BigDecimal("100.00"));
   public static final int SCALE = 2;
+  public static final int DECIMAL_PLACES = 2;
 
   public static Percentage of(@NonNull BigDecimal value) {
     if (BigDecimalUtils.isLessThanZero(value)
-        && BigDecimalUtils.isGreaterThan(value, HUNDRED.value)) {
+        && BigDecimalUtils.isGreaterThan(value, ONE_HUNDRED.value)) {
       throw BusinessException.of(PercentageErrorCode.INVALID);
     }
 
