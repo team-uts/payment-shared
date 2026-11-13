@@ -10,9 +10,10 @@ public class BigDecimalUtils {
     return amount1.compareTo(amount2) > 0;
   }
 
-  public static boolean isGreaterThanEqualToZero(BigDecimal amount) {
-    Objects.requireNonNull(amount);
-    return amount.compareTo(BigDecimal.ZERO) >= 0;
+  public static boolean isGreaterThanEqualTo(BigDecimal amount1, BigDecimal amount2) {
+    Objects.requireNonNull(amount1);
+    Objects.requireNonNull(amount2);
+    return amount1.compareTo(amount2) >= 0;
   }
 
   public static boolean isLessThan(BigDecimal amount1, BigDecimal amount2) {
@@ -30,6 +31,11 @@ public class BigDecimalUtils {
   public static boolean isGreaterThanZero(BigDecimal amount) {
     Objects.requireNonNull(amount);
     return amount.compareTo(BigDecimal.ZERO) > 0;
+  }
+
+  public static boolean isGreaterThanEqualToZero(BigDecimal amount) {
+    Objects.requireNonNull(amount);
+    return amount.compareTo(BigDecimal.ZERO) >= 0;
   }
 
   public static boolean isLessThanZero(BigDecimal amount) {

@@ -17,8 +17,8 @@ public class Percentage {
   public static final int SCALE = 2;
 
   public static Percentage of(@NonNull BigDecimal value) {
-    if (BigDecimalUtils.isGreaterThanEqualToZero(value)
-        && BigDecimalUtils.isLessThanEqualTo(value, HUNDRED.value)) {
+    if (BigDecimalUtils.isLessThanZero(value)
+        && BigDecimalUtils.isGreaterThan(value, HUNDRED.value)) {
       throw BusinessException.of(PercentageErrorCode.INVALID);
     }
 
