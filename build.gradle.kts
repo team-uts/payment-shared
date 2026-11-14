@@ -34,6 +34,7 @@ dependencies {
   annotationProcessor(springBootBom)
 
   compileOnly(libs.spring.boot.autoconfigure)
+  compileOnly("jakarta.persistence:jakarta.persistence-api")
 
   // Spring is compileOnly on purpose: every consumer is already a Spring Boot app
   // and brings these at runtime. Keeping them off the published POM means this
@@ -54,11 +55,13 @@ dependencies {
 
   // Tests need the real thing on the classpath.
   testImplementation(libs.spring.test)
+  testImplementation(libs.spring.orm)
   testImplementation(libs.junit.jupiter)
   testImplementation(libs.assertj.core)
   testImplementation(libs.mockito.core)
   testRuntimeOnly(libs.junit.platform.launcher)
-  testImplementation(kotlin("test"))
+  testImplementation(libs.hibernate.core)
+  testRuntimeOnly(libs.h2database)
 }
 
 configurations {

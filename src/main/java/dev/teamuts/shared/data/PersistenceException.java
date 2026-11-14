@@ -44,4 +44,13 @@ public class PersistenceException extends SystemException {
         "Entity (%s) is already persisted.".formatted(model.getClass().getSimpleName()),
         null);
   }
+
+  public static PersistenceException notAcquiredLock(
+      BaseIdentifiableModel<?> model, Class<?> entityClass) {
+    return new PersistenceException(
+        PersistenceErrorCode.NOT_ACQUIRED_LOCK,
+        "Current transaction has no JPA pessimistic lock on %s with ID %s"
+            .formatted(entityClass.getSimpleName(), model.getId()),
+        null);
+  }
 }
