@@ -20,16 +20,24 @@ public class Money {
   @EqualsAndHashCode.Include(rank = 2)
   private final Currency currency;
 
+  @ToString.Exclude private final boolean minusAllowable;
+
   public static Money zero(Currency currency) {
     return of(BigDecimal.ZERO, currency);
   }
 
   public static Money of(BigDecimal amount, Currency currency) {
-    if (BigDecimalUtils.isLessThanZero(amount)) {
+    return of(amount, currency, false);
+  }
+
+  // main generator
+  public static Money of(BigDecimal amount, Currency currency, boolean minusAllowable) {
+    if (!minusAllowable && BigDecimalUtils.isLessThanZero(amount)) {
       throw BusinessException.of(MoneyErrorCode.LESS_THAN_ZERO, ErrorArguments.of(amount));
     }
 
-    return new Money(amount.setScale(currency.getScale(), RoundingMode.UNNECESSARY), currency);
+    return new Money(
+        amount.setScale(currency.getScale(), RoundingMode.UNNECESSARY), currency, minusAllowable);
   }
 
   public boolean isEqual(Money other) {
@@ -88,14 +96,18 @@ public class Money {
 
   public Money plus(Money other) {
     checkIfSameCurrency(other);
+    checkIfSameMinusAllowable(other);
 
-    return Money.of(BigDecimalUtils.add(this.amount, other.amount), this.currency);
+    return Money.of(
+        BigDecimalUtils.add(this.amount, other.amount), this.currency, this.minusAllowable);
   }
 
   public Money minus(Money other) {
     checkIfSameCurrency(other);
+    checkIfSameMinusAllowable(other);
 
-    return Money.of(BigDecimalUtils.subtract(this.amount, other.amount), this.currency);
+    return Money.of(
+        BigDecimalUtils.subtract(this.amount, other.amount), this.currency, this.minusAllowable);
   }
 
   public Money multiplyByPercentage(Percentage percentage) {
@@ -104,7 +116,8 @@ public class Money {
             .multiply(percentage.getValue())
             .movePointLeft(Percentage.DECIMAL_PLACES)
             .setScale(currency.getScale(), RoundingMode.HALF_UP),
-        this.currency);
+        this.currency,
+        this.minusAllowable);
   }
 
   public Money copy() {
@@ -115,6 +128,12 @@ public class Money {
     if (!this.currency.equals(other.currency)) {
       throw BusinessException.of(
           MoneyErrorCode.CURRENCY_MISMATCH, ErrorArguments.of(this.currency, other.currency));
+    }
+  }
+
+  private void checkIfSameMinusAllowable(Money other) {
+    if (this.minusAllowable != other.minusAllowable) {
+      throw BusinessException.of(MoneyErrorCode.CURRENCY_MISMATCH);
     }
   }
 }

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 public enum MoneyErrorCode implements ErrorCode {
   LESS_THAN_ZERO("MNY-0001", HttpStatus.BAD_REQUEST),
   CURRENCY_MISMATCH("MNY-0002", HttpStatus.BAD_REQUEST),
+  MINUS_ALLOWABLE_MISMATCH("MNY-0003", HttpStatus.BAD_REQUEST),
   ;
 
   private final String code;
