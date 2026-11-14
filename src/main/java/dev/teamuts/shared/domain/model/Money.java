@@ -20,7 +20,7 @@ public class Money {
   @EqualsAndHashCode.Include(rank = 2)
   private final Currency currency;
 
-  @ToString.Exclude private final boolean minusAllowable;
+  @ToString.Exclude private final boolean allowsNegative;
 
   public static Money zero(Currency currency) {
     return of(BigDecimal.ZERO, currency);
@@ -31,23 +31,23 @@ public class Money {
   }
 
   // main generator
-  public static Money of(BigDecimal amount, Currency currency, boolean minusAllowable) {
-    if (!minusAllowable && BigDecimalUtils.isLessThanZero(amount)) {
+  public static Money of(BigDecimal amount, Currency currency, boolean allowsNegative) {
+    if (!allowsNegative && BigDecimalUtils.isLessThanZero(amount)) {
       throw BusinessException.of(MoneyErrorCode.LESS_THAN_ZERO, ErrorArguments.of(amount));
     }
 
     return new Money(
-        amount.setScale(currency.getScale(), RoundingMode.UNNECESSARY), currency, minusAllowable);
+        amount.setScale(currency.getScale(), RoundingMode.UNNECESSARY), currency, allowsNegative);
   }
 
   public boolean isEqual(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isEqual(this.amount, other.amount);
   }
 
   public boolean isNotEqual(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isNotEqual(this.amount, other.amount);
   }
@@ -63,25 +63,25 @@ public class Money {
   }
 
   public boolean isGreaterThan(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isGreaterThan(this.amount, other.amount);
   }
 
   public boolean isGreaterThanOrEqualTo(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isGreaterThanOrEqualTo(this.amount, other.amount);
   }
 
   public boolean isLessThan(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isLessThan(this.amount, other.amount);
   }
 
   public boolean isLessThanOrEqualTo(Money other) {
-    checkIfSameCurrency(other);
+    requireSameCurrency(other);
 
     return BigDecimalUtils.isLessThanOrEqualTo(this.amount, other.amount);
   }
@@ -95,19 +95,19 @@ public class Money {
   }
 
   public Money plus(Money other) {
-    checkIfSameCurrency(other);
-    checkIfSameMinusAllowable(other);
+    requireSameCurrency(other);
+    requireSameNegativeAllowance(other);
 
     return Money.of(
-        BigDecimalUtils.add(this.amount, other.amount), this.currency, this.minusAllowable);
+        BigDecimalUtils.add(this.amount, other.amount), this.currency, this.allowsNegative);
   }
 
   public Money minus(Money other) {
-    checkIfSameCurrency(other);
-    checkIfSameMinusAllowable(other);
+    requireSameCurrency(other);
+    requireSameNegativeAllowance(other);
 
     return Money.of(
-        BigDecimalUtils.subtract(this.amount, other.amount), this.currency, this.minusAllowable);
+        BigDecimalUtils.subtract(this.amount, other.amount), this.currency, this.allowsNegative);
   }
 
   public Money multiplyByPercentage(Percentage percentage) {
@@ -117,22 +117,22 @@ public class Money {
             .movePointLeft(Percentage.DECIMAL_PLACES)
             .setScale(currency.getScale(), RoundingMode.HALF_UP),
         this.currency,
-        this.minusAllowable);
+        this.allowsNegative);
   }
 
   public Money copy() {
-    return Money.of(this.amount, this.currency);
+    return Money.of(this.amount, this.currency, this.allowsNegative);
   }
 
-  private void checkIfSameCurrency(Money other) {
+  private void requireSameCurrency(Money other) {
     if (!this.currency.equals(other.currency)) {
       throw BusinessException.of(
           MoneyErrorCode.CURRENCY_MISMATCH, ErrorArguments.of(this.currency, other.currency));
     }
   }
 
-  private void checkIfSameMinusAllowable(Money other) {
-    if (this.minusAllowable != other.minusAllowable) {
+  private void requireSameNegativeAllowance(Money other) {
+    if (this.allowsNegative != other.allowsNegative) {
       throw BusinessException.of(MoneyErrorCode.CURRENCY_MISMATCH);
     }
   }
