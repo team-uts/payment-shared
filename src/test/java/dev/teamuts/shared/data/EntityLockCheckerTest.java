@@ -66,8 +66,8 @@ class EntityLockCheckerTest {
 
   @ParameterizedTest
   @EnumSource(
-    value = LockModeType.class,
-    names = {"PESSIMISTIC_READ", "PESSIMISTIC_WRITE", "PESSIMISTIC_FORCE_INCREMENT"})
+      value = LockModeType.class,
+      names = {"PESSIMISTIC_READ", "PESSIMISTIC_WRITE", "PESSIMISTIC_FORCE_INCREMENT"})
   void recognizesLockAcquiredInMultipleQueries(LockModeType mode) {
     entityManager.find(LockTestEntity.class, model.getId(), mode);
     assertTrue(checker.isLocked(model, LockTestEntity.class));
