@@ -57,10 +57,24 @@ class EntityLockCheckerTest {
   @EnumSource(
       value = LockModeType.class,
       names = {"PESSIMISTIC_READ", "PESSIMISTIC_WRITE", "PESSIMISTIC_FORCE_INCREMENT"})
-  void recognizesLockAcquiredByJpa(LockModeType mode) {
+  void recognizesLockAcquired(LockModeType mode) {
     entityManager.find(LockTestEntity.class, model.getId(), mode);
 
     assertTrue(checker.isLocked(model, LockTestEntity.class));
+    assertDoesNotThrow(() -> checker.requireLocked(model, LockTestEntity.class));
+  }
+
+  @ParameterizedTest
+  @EnumSource(
+    value = LockModeType.class,
+    names = {"PESSIMISTIC_READ", "PESSIMISTIC_WRITE", "PESSIMISTIC_FORCE_INCREMENT"})
+  void recognizesLockAcquiredInMultipleQueries(LockModeType mode) {
+    entityManager.find(LockTestEntity.class, model.getId(), mode);
+    assertTrue(checker.isLocked(model, LockTestEntity.class));
+
+    entityManager.find(LockTestEntity.class, model.getId());
+    assertTrue(checker.isLocked(model, LockTestEntity.class));
+
     assertDoesNotThrow(() -> checker.requireLocked(model, LockTestEntity.class));
   }
 
@@ -82,11 +96,13 @@ class EntityLockCheckerTest {
   void doesNotCarryLockIntoNextTransaction(boolean commit) {
     entityManager.find(LockTestEntity.class, model.getId(), LockModeType.PESSIMISTIC_WRITE);
     assertTrue(checker.isLocked(model, LockTestEntity.class));
+
     if (commit) {
       TestTransaction.flagForCommit();
     } else {
       TestTransaction.flagForRollback();
     }
+
     TestTransaction.end();
 
     assertFalse(checker.isLocked(model, LockTestEntity.class));
