@@ -1,7 +1,7 @@
 package dev.teamuts.shared.autoconfigure;
 
 import dev.teamuts.shared.config.AppProfile;
-import dev.teamuts.shared.data.EntityLockChecker;
+import dev.teamuts.shared.data.lock.EntityLockChecker;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

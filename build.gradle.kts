@@ -46,6 +46,7 @@ dependencies {
   compileOnly(libs.spring.orm)
   compileOnly(libs.jakarta.servlet.api)
   compileOnly(libs.slf4j.api)
+  compileOnly("org.aspectj:aspectjweaver")
 
   compileOnly(libs.lombok)
   annotationProcessor(libs.lombok)

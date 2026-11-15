@@ -1,5 +1,6 @@
 package dev.teamuts.shared.data;
 
+import dev.teamuts.shared.data.lock.EntityLockChecker;
 import jakarta.persistence.EntityManager;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.JdbcSettings;

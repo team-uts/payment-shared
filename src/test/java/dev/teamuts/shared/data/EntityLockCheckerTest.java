@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
+import dev.teamuts.shared.data.lock.EntityLockChecker;
 import dev.teamuts.shared.domain.model.BaseIdentifiableModel;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;

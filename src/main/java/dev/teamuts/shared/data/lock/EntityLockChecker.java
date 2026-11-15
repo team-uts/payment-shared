@@ -1,5 +1,6 @@
-package dev.teamuts.shared.data;
+package dev.teamuts.shared.data.lock;
 
+import dev.teamuts.shared.data.PersistenceException;
 import dev.teamuts.shared.domain.model.BaseIdentifiableModel;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
