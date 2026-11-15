@@ -5,10 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import java.util.EnumSet;
 import java.util.Objects;
-import org.springframework.stereotype.Component;
 
 /** Checks pessimistic locks known to the current JPA persistence context. */
-@Component
 public class EntityLockChecker {
   private final EntityManager entityManager;
 

@@ -43,6 +43,7 @@ dependencies {
   compileOnly(libs.spring.context)
   compileOnly(libs.spring.web)
   compileOnly(libs.spring.tx)
+  compileOnly(libs.spring.orm)
   compileOnly(libs.jakarta.servlet.api)
   compileOnly(libs.slf4j.api)
 
