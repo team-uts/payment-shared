@@ -17,6 +17,7 @@ public class SharedAutoConfiguration {
     return new AppProfile();
   }
 
+  /** It will use the entity manager configured on each consuming project. */
   @Bean
   @ConditionalOnMissingBean(EntityLockChecker.class)
   @ConditionalOnBean(EntityManagerFactory.class)
