@@ -1,5 +1,6 @@
 package dev.teamuts.shared.data;
 
+import dev.teamuts.shared.data.constant.TransactionConstants;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
