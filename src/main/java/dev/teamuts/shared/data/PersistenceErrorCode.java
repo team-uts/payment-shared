@@ -14,7 +14,9 @@ public enum PersistenceErrorCode implements SystemErrorCode {
   NOT_PERSISTED("PERS-0002"),
   ALREADY_PERSISTED("PERS-0003"),
   NOT_ACQUIRED_LOCK("PERS-0004"),
-  ENTITY_LOCK_CHECKING_FAILED("PERS-0005");
+  ENTITY_LOCK_CHECKING_FAILED("PERS-0005"),
+  LOCK_FAILED("PERS-0006"),
+  ;
 
   private final String code;
   // Persistence layer errors > Internal Server Error (500)
