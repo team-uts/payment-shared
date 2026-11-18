@@ -47,14 +47,15 @@ public abstract class BaseDistributedLockAspect {
 
     // if the lock TTL is not specified in the annotation, use the default TTL from the lock group
     LockTtl ttl = lockSetup.ttl().isZero() ? lockGroup.getLockTtl() : lockSetup.ttl();
-    // acquire lock
-    boolean isLocked = cacheLockPort.lock(key, ttl.millis());
 
-    if (!isLocked) {
-      throw PersistenceException.of(
-          PersistenceErrorCode.LOCK_ACQUISITION_FAILED,
-          "Failed to acquire lock for key: %s".formatted(key));
-    }
+    // acquire lock
+    LockReleaseCallback lockReleaseCallback =
+        cacheLockPort
+            .lock(key, ttl.millis())
+            .orElseThrow(() ->
+                PersistenceException.of(
+                    PersistenceErrorCode.LOCK_ACQUISITION_FAILED,
+                    "Failed to acquire lock for key: %s".formatted(key)));
 
     String className = joinPoint.getTarget().getClass().getSimpleName();
 
@@ -62,8 +63,8 @@ public abstract class BaseDistributedLockAspect {
       log.debug("[{}] Lock Acquired >> {}", className, key);
       return joinPoint.proceed();
     } finally {
-      // release lock
-      cacheLockPort.unlock(key);
+      // release lock callback
+      lockReleaseCallback.execute();
       log.debug("[{}] Lock Released >> {}", className, key);
     }
   }
@@ -91,6 +92,11 @@ public abstract class BaseDistributedLockAspect {
    */
   protected abstract KtLockGroup getLockGroup(String groupName);
 
+  /**
+   * generate lock key
+   *
+   * @return {@code LOCK:<group_name>:<arg1>:<arg2>:...}
+   */
   private String generateLockKey(
       Method method, KtLockGroup group, LockKeyPath[] keyPaths, Object[] args) {
     // get param index for each key param annotation setup
@@ -131,8 +137,6 @@ public abstract class BaseDistributedLockAspect {
             })
             .collect(Collectors.joining(String.valueOf(LOCK_KEY_SEPARATOR)));
 
-    // generate lock key
-    // LOCK:<group_name>:<arg1>:<arg2>:...
     return "LOCK%c%s%c%s"
         .formatted(LOCK_KEY_SEPARATOR, group.getName(), LOCK_KEY_SEPARATOR, argValues);
   }
