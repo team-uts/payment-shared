@@ -3,8 +3,8 @@
   <groupId>dev.teamuts.shared</groupId>
   <artifactId>payment-shared</artifactId>
   <versioning>
-    <latest>0.7.4</latest>
-    <release>0.7.4</release>
+    <latest>0.7.5</latest>
+    <release>0.7.5</release>
     <versions>
       <version>0.4.0</version>
       <version>0.4.1</version>
@@ -34,7 +34,8 @@
       <version>0.7.2</version>
       <version>0.7.3</version>
       <version>0.7.4</version>
+      <version>0.7.5</version>
     </versions>
-    <lastUpdated>20261118123655</lastUpdated>
+    <lastUpdated>20261118134733</lastUpdated>
   </versioning>
 </metadata>
