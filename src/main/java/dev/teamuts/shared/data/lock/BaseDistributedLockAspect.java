@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
 /**
@@ -30,7 +28,6 @@ import org.aspectj.lang.reflect.MethodSignature;
  * class in each project, because, each project has its own domain group.
  */
 @Slf4j
-@Aspect
 public abstract class BaseDistributedLockAspect {
   private final CacheLockPort cacheLockPort;
 
@@ -40,8 +37,6 @@ public abstract class BaseDistributedLockAspect {
     this.cacheLockPort = cacheLockPort;
   }
 
-  @Around(
-      "@annotation(dev.teamuts.shared.data.annotation.TryLock) || @annotation(dev.teamuts.shared.data.annotation.WaitLock)")
   public Object acquireLock(ProceedingJoinPoint joinPoint) throws Throwable {
     Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
 
