@@ -16,4 +16,8 @@ public enum LockTtl {
   public long millis() {
     return time.toMillis();
   }
+
+  public boolean isZero() {
+    return this == ZERO;
+  }
 }

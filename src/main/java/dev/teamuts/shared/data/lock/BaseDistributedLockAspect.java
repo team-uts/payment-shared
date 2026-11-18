@@ -46,7 +46,7 @@ public abstract class BaseDistributedLockAspect {
     String key = generateLockKey(method, lockGroup, lockSetup.keyPaths(), joinPoint.getArgs());
 
     // if the lock TTL is not specified in the annotation, use the default TTL from the lock group
-    LockTtl ttl = lockSetup.ttl() == LockTtl.ZERO ? lockGroup.getLockTtl() : lockSetup.ttl();
+    LockTtl ttl = lockSetup.ttl().isZero() ? lockGroup.getLockTtl() : lockSetup.ttl();
     // acquire lock
     boolean isLocked = cacheLockPort.lock(key, ttl.millis());
 
