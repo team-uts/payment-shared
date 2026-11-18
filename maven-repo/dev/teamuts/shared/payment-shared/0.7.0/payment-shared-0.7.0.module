@@ -1,0 +1,122 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "dev.teamuts.shared",
+    "module": "payment-shared",
+    "version": "0.7.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.6.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "payment-shared-0.7.0.jar",
+          "url": "payment-shared-0.7.0.jar",
+          "size": 75537,
+          "sha512": "07da8b53c78f2bcdb954fc72b3ff47376d35050e8f4d9432174a5ec67e912c5baf0c26308122fb0b13707a771523e96efcef2ac9c042a70cb55eb40683ba3a96",
+          "sha256": "987a6866748a9375570242a4db233f3dbe89744ec68344abf3a484b90ca61f1f",
+          "sha1": "12d5fc7c92f50bc12326cf5f399054684b554727",
+          "md5": "aecab99e783611f6487558262c1bbab2"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.3.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "payment-shared-0.7.0.jar",
+          "url": "payment-shared-0.7.0.jar",
+          "size": 75537,
+          "sha512": "07da8b53c78f2bcdb954fc72b3ff47376d35050e8f4d9432174a5ec67e912c5baf0c26308122fb0b13707a771523e96efcef2ac9c042a70cb55eb40683ba3a96",
+          "sha256": "987a6866748a9375570242a4db233f3dbe89744ec68344abf3a484b90ca61f1f",
+          "sha1": "12d5fc7c92f50bc12326cf5f399054684b554727",
+          "md5": "aecab99e783611f6487558262c1bbab2"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.7.0-sources.jar",
+          "url": "payment-shared-0.7.0-sources.jar",
+          "size": 36006,
+          "sha512": "7a384e42f0da43f37f46c7b7920b95f4f5e3da1d5189ea7ccac45d05698ece2d3d4f450609cfee0eb0e495de26581bc908e032c543989fcb335b5401fe2cd789",
+          "sha256": "d149fc57e60117e7f95b0ac982d5e6913194cdd473369ce0ea0b42cb4715bbdb",
+          "sha1": "3b9703e9b164b51e5615a7f1f872d201a08b8da7",
+          "md5": "dcd3d0fc3e6855c921ca2eeafafd83db"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "payment-shared-0.7.0-javadoc.jar",
+          "url": "payment-shared-0.7.0-javadoc.jar",
+          "size": 321911,
+          "sha512": "e672094f4c0e90a3dff5d320eb5c78a7f37047ab6d2c299bcc9d13cca91e9df99b62c2f69e0d82745e2680f99e18ec090ede8ea76df2e82895a21094be20a6c0",
+          "sha256": "b0efb426f3f4fd400cc7603964e872dbbb59bdf00c04221675422ed21c2e444c",
+          "sha1": "f5bd5a22352646c7cc678d2a0d4834ae6dc7781e",
+          "md5": "977ac3b6e21ca429f8e34f67b1f7b58d"
+        }
+      ]
+    }
+  ]
+}
