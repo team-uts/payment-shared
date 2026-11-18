@@ -56,13 +56,15 @@ public abstract class BaseDistributedLockAspect {
           "Failed to acquire lock for key: %s".formatted(key));
     }
 
+    String className = joinPoint.getTarget().getClass().getSimpleName();
+
     try {
-      log.debug("[{}] Lock Acquired >> {}", method.getName(), key);
+      log.debug("[{}] Lock Acquired >> {}", className, key);
       return joinPoint.proceed();
     } finally {
       // release lock
       cacheLockPort.unlock(key);
-      log.debug("[{}] Lock Released >> {}", method.getName(), key);
+      log.debug("[{}] Lock Released >> {}", className, key);
     }
   }
 
