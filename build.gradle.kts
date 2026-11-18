@@ -76,11 +76,12 @@ configurations {
   }
 }
 
-tasks.test {
+tasks.withType<Test>() {
   useJUnitPlatform()
+  jvmArgs("-Xshare:off")
 }
 
-tasks.javadoc {
+tasks.withType<Javadoc>() {
   // Publish a javadoc jar without failing/spamming on missing @param/@return.
   (options as StandardJavadocDocletOptions).addStringOption("Xdoclint:none", "-quiet")
 }

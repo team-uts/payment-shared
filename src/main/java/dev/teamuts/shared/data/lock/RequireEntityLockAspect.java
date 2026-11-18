@@ -2,6 +2,7 @@ package dev.teamuts.shared.data.lock;
 
 import dev.teamuts.shared.data.PersistenceErrorCode;
 import dev.teamuts.shared.data.PersistenceException;
+import dev.teamuts.shared.data.annotation.RequireEntityLock;
 import dev.teamuts.shared.domain.model.BaseIdentifiableModel;
 import jakarta.persistence.EntityManager;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class RequireEntityLockAspect {
     this.entityManager = Objects.requireNonNull(entityManager);
   }
 
-  @Around("@annotation(RequireEntityLock)")
+  @Around("@annotation(dev.teamuts.shared.data.annotation.RequireEntityLock)")
   public Object checkEntityLock(ProceedingJoinPoint joinPoint) throws Throwable {
     RequireEntityLock annotation =
         ((MethodSignature) joinPoint).getMethod().getAnnotation(RequireEntityLock.class);

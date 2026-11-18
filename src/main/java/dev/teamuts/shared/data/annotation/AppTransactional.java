@@ -1,4 +1,4 @@
-package dev.teamuts.shared.data;
+package dev.teamuts.shared.data.annotation;
 
 import dev.teamuts.shared.data.constant.TransactionConstants;
 import java.lang.annotation.ElementType;

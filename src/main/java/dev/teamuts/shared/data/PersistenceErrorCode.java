@@ -15,7 +15,8 @@ public enum PersistenceErrorCode implements SystemErrorCode {
   ALREADY_PERSISTED("PERS-0003"),
   NOT_ACQUIRED_LOCK("PERS-0004"),
   ENTITY_LOCK_CHECKING_FAILED("PERS-0005"),
-  LOCK_FAILED("PERS-0006"),
+  LOCK_ACQUISITION_FAILED("PERS-0006"),
+  INVALID_LOCK_ANNOTATION("PERS-0007"),
   ;
 
   private final String code;

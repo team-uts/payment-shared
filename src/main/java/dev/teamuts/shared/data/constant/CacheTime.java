@@ -1,4 +1,4 @@
-package dev.teamuts.shared.data.lock;
+package dev.teamuts.shared.data.constant;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
