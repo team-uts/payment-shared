@@ -20,7 +20,11 @@ java {
 
 kotlin {
   compilerOptions {
-    freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
+    freeCompilerArgs.addAll(
+      "-Xjsr305=strict",
+      "-Xannotation-default-target=param-property",
+      "-Xwarning-level=LOMBOK_PLUGIN_IS_EXPERIMENTAL:disabled",
+    )
   }
 }
 
@@ -46,7 +50,7 @@ dependencies {
   compileOnly(libs.spring.orm)
   compileOnly(libs.jakarta.servlet.api)
   compileOnly(libs.slf4j.api)
-  compileOnly("org.aspectj:aspectjweaver")
+  compileOnly(libs.aspectj.weaver)
 
   compileOnly(libs.lombok)
   annotationProcessor(libs.lombok)

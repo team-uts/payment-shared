@@ -31,6 +31,7 @@ spring-test = { module = "org.springframework:spring-test" }
 
 jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
 slf4j-api = { module = "org.slf4j:slf4j-api" }
+aspectj-weaver = { module = "org.aspectj:aspectjweaver" }
 
 hibernate-core = { module = "org.hibernate.orm:hibernate-core" }
 h2database = { module = "com.h2database:h2" }

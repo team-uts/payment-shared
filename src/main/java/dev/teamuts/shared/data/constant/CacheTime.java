@@ -10,6 +10,8 @@ public enum CacheTime {
   THREE_SECONDS(3, ChronoUnit.SECONDS),
   FIVE_SECONDS(5, ChronoUnit.SECONDS),
   TEN_SECONDS(10, ChronoUnit.SECONDS),
+  THIRTY_SECONDS(30, ChronoUnit.SECONDS),
+  ONE_MINUTE(1, ChronoUnit.MINUTES),
   FIVE_MINUTES(5, ChronoUnit.MINUTES),
   TEN_MINUTES(10, ChronoUnit.MINUTES),
   ONE_HOUR(1L, ChronoUnit.HOURS),
