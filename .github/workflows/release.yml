@@ -86,7 +86,7 @@ jobs:
           git config user.name  "team-uts-bot"
           git config user.email "team-uts-bot@teamuts.noreply.github.com"
           git tag -a "v$VERSION" -m "Release v$VERSION"
-          git push origin "v$VERSION"
+          git push --verbose origin tag "v$VERSION"
 
       - name: Create GitHub Release
         env:
