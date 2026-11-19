@@ -89,7 +89,7 @@ class EntityLockCheckerTest {
     assertFalse(checker.isLocked(model, LockTestEntity.class));
     assertThatThrownBy(() -> checker.requireLocked(model, LockTestEntity.class))
         .isInstanceOf(PersistenceException.class)
-        .hasMessageContaining(PersistenceErrorCode.NOT_ACQUIRED_LOCK.name());
+        .hasMessageContaining(PersistenceErrorCode.NOT_ACQUIRED_ENTITY_LOCK.name());
   }
 
   @ParameterizedTest
@@ -117,7 +117,7 @@ class EntityLockCheckerTest {
     assertFalse(checker.isLocked(model, LockTestEntity.class));
     assertThatThrownBy(() -> checker.requireLocked(model, LockTestEntity.class))
         .isInstanceOf(PersistenceException.class)
-        .hasMessageContaining(PersistenceErrorCode.NOT_ACQUIRED_LOCK.name());
+        .hasMessageContaining(PersistenceErrorCode.NOT_ACQUIRED_ENTITY_LOCK.name());
   }
 
   @Test

@@ -7,7 +7,11 @@ import jakarta.persistence.LockModeType;
 import java.util.EnumSet;
 import java.util.Objects;
 
-/** Checks pessimistic locks known to the current JPA persistence context. */
+/**
+ * Checks pessimistic locks known to the current JPA persistence context.
+ *
+ * @author <a href="https://github.com/joshua-hb-lee">Joshua (Hanbin) Lee</a>
+ */
 public class EntityLockChecker {
   private final EntityManager entityManager;
 
@@ -54,7 +58,7 @@ public class EntityLockChecker {
   /** Requires a pessimistic lock reported by JPA. */
   public void requireLocked(BaseIdentifiableModel<?> model, Class<?> entityClass) {
     if (!isLocked(model, entityClass)) {
-      throw PersistenceException.notAcquiredLock(model, entityClass);
+      throw PersistenceException.notAcquiredEntityLock(model, entityClass);
     }
   }
 }

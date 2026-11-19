@@ -1,11 +1,25 @@
 package dev.teamuts.shared.error.exception;
 
+import dev.teamuts.shared.error.ProblemDetailGenerator;
 import dev.teamuts.shared.error.constant.SystemErrorCode;
 import lombok.Getter;
 
+/**
+ * This exception is used to be mapped to problem detail response for system error.
+ *
+ * @author <a href="https://github.com/joshua-hb-lee">Joshua (Hanbin) Lee</a>
+ * @see ProblemDetailGenerator
+ */
 @Getter
 public class SystemException extends ApiExternalException {
+  /** for logging purpose inside. */
   private final String logMessage;
+
+  /**
+   * for being exposed to user in problem detail response.
+   *
+   * @see ProblemDetailGenerator
+   */
   private final String detailedMessage;
 
   protected SystemException(SystemErrorCode errorCode, String logMessage, String detailedMessage) {

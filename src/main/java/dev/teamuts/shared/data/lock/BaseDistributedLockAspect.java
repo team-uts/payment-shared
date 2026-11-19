@@ -26,6 +26,8 @@ import org.aspectj.lang.reflect.MethodSignature;
  * implementation.<br>
  * I leave {@link KtLockGroup} and {@link LockGroup} interface here to implement the lock group enum
  * class in each project, because, each project has its own domain group.
+ *
+ * @author <a href="https://github.com/joshua-hb-lee">Joshua (Hanbin) Lee</a>
  */
 @Slf4j
 public abstract class BaseDistributedLockAspect {

@@ -13,6 +13,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
+/**
+ * To check if the current transaction has a JPA pessimistic lock on the entity.
+ *
+ * @author <a href="https://github.com/joshua-hb-lee">Joshua (Hanbin) Lee</a>
+ * @see RequireEntityLock
+ */
 @Aspect
 public class RequireEntityLockAspect {
   private final EntityLockChecker entityLockChecker;
