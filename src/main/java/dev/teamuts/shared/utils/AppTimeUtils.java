@@ -6,9 +6,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.TimeZone;
 
 public class AppTimeUtils {
-  public static String GLOBAL_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+  public static final String GLOBAL_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+  public static final String GLOBAL_ZONED_DATETIME_FORMAT = "uuuu-MM-dd'T'HH:mm:ss.SSSXXX'['VV']'";
+  public static final ZoneOffset GLOBAL_ZONE_OFFSET = ZoneOffset.UTC;
+
   public static final long MILLI_SEC_UNIT = 1_000L;
-  public static ZoneOffset GLOBAL_ZONE_OFFSET = ZoneOffset.UTC;
 
   public static long convertSecToMillis(int seconds) {
     return seconds * MILLI_SEC_UNIT;

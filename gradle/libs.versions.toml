@@ -46,3 +46,4 @@ mockito-core = { module = "org.mockito:mockito-core" }
 google-gson = { module = "com.google.code.gson:gson" }
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
 jackson-annotation = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson-annotation" }
+jackson3-databind = { module = "tools.jackson.core:jackson-databind" }

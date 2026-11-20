@@ -58,6 +58,7 @@ dependencies {
   compileOnly(libs.google.gson)
   compileOnly(libs.snakeyaml)
   compileOnly(libs.jackson.annotation)
+  compileOnly(libs.jackson3.databind)
 
   // Tests need the real thing on the classpath.
   testImplementation(libs.spring.test)
