@@ -1,6 +1,7 @@
 package dev.teamuts.shared.domain.model;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public abstract class BaseCollection<E> {
@@ -29,5 +30,9 @@ public abstract class BaseCollection<E> {
   /** type converting from model type ({@code E}) to another type ({@code T}) */
   public <R> List<R> mapToList(Function<E, R> mapper) {
     return elements.stream().map(mapper).toList();
+  }
+
+  public void forEach(Consumer<E> action) {
+    elements.forEach(action);
   }
 }
