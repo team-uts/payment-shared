@@ -37,6 +37,10 @@ public abstract class BaseIdentifiableModel<ID> {
     };
   }
 
+  public boolean isNotPersisted() {
+    return !isPersisted();
+  }
+
   /** Only when the entity is not persisted, the ID can be set. */
   protected final void setId(ID id) {
     if (isPersisted()) {
