@@ -28,6 +28,15 @@ public abstract class BaseIdentifiableModel<ID> {
     }
   }
 
+  public boolean isPersisted() {
+    return switch (id) {
+      case Number numId -> numId.longValue() > 0;
+      // TODO: need to check
+      case UUID uuid -> !uuid.equals(new UUID(0L, 0L));
+      case null, default -> false;
+    };
+  }
+
   /** Only when the entity is not persisted, the ID can be set. */
   protected final void setId(ID id) {
     if (isPersisted()) {
@@ -35,14 +44,5 @@ public abstract class BaseIdentifiableModel<ID> {
     }
 
     this.id = id;
-  }
-
-  private boolean isPersisted() {
-    return switch (id) {
-      case Number numId -> numId.longValue() > 0;
-      // TODO: need to check
-      case UUID uuid -> !uuid.equals(new UUID(0L, 0L));
-      case null, default -> false;
-    };
   }
 }
