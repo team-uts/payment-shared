@@ -5,6 +5,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 import dev.teamuts.shared.data.lock.EntityLockChecker;
+import dev.teamuts.shared.domain.constant.ModelSourceType;
 import dev.teamuts.shared.domain.model.BaseIdentifiableModel;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
@@ -135,7 +136,7 @@ class EntityLockCheckerTest {
   // model
   private static class TestModel extends BaseIdentifiableModel<Long> {
     TestModel(Long id) {
-      super(id);
+      super(id, ModelSourceType.DATABASE);
     }
   }
 

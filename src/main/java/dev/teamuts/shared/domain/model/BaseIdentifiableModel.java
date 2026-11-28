@@ -1,6 +1,7 @@
 package dev.teamuts.shared.domain.model;
 
 import dev.teamuts.shared.data.PersistenceException;
+import dev.teamuts.shared.domain.constant.ModelSourceType;
 import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -9,23 +10,29 @@ import lombok.Getter;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class BaseIdentifiableModel<ID> {
   @EqualsAndHashCode.Include private ID id;
+  @EqualsAndHashCode.Include private ModelSourceType sourceType;
 
-  protected BaseIdentifiableModel() {
-    this.id = null;
-  }
-
-  protected BaseIdentifiableModel(ID id) {
+  protected BaseIdentifiableModel(ID id, ModelSourceType sourceType) {
     if (id != null && !(id instanceof Long || id instanceof UUID)) {
       throw new IllegalArgumentException("ID must be Long or UUID");
     }
 
     this.id = id;
+    this.sourceType = sourceType;
+
+    // checking after the values being assigned
+    // if the model is from persistence, check if this in a persistent state.
+    if (sourceType.isPersistence()) {
+      checkPersisted();
+    }
   }
 
   public final void checkPersisted() {
-    if (!isPersisted()) {
-      throw PersistenceException.notPersisted(this);
+    if (sourceType.isPersistence() && isPersisted()) {
+      return;
     }
+
+    throw PersistenceException.notPersisted(this);
   }
 
   public boolean isPersisted() {
