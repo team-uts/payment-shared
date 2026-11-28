@@ -16,4 +16,8 @@ public abstract class Provider<T extends Enum<T>, S extends ProviderService<T>> 
         .orElseThrow(() ->
             new IllegalArgumentException("service not found with key %s".formatted(key.name())));
   }
+
+  public List<S> getInstances(T key) {
+    return services.stream().filter(service -> service.supports(key)).toList();
+  }
 }
